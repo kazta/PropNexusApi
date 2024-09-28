@@ -1,0 +1,6 @@
+@PropNexus.Api_HostAddress = http://localhost:5084
+
+GET {{PropNexus.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
