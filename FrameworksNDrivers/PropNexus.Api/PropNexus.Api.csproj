@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\InterfaceAdapters\PropNexus.Controllers\PropNexus.Controllers.csproj" />
+    <ProjectReference Include="..\..\InterfaceAdapters\PropNexus.IoC\PropNexus.IoC.csproj" />
   </ItemGroup>
 
 </Project>
