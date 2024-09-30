@@ -1,13 +1,25 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PropNexus.Dtos.Owners;
+using PropNexus.Entities.Interfaces;
+using PropNexus.UseCases.Owner.GetAll;
 
 namespace PropNexus.Controllers.Owners;
 [ApiController]
 [Route("api/[controller]")]
-public class GetAllOwnerController : ControllerBase
+public class GetAllOwnerController(IGetAllOwnerInputPort inputPort, IGetAllOwnerOutputPort outputPort) : ControllerBase
 {
     [HttpGet]
-    public ActionResult Get()
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAll()
     {
-        return Ok("Hola mundo");
+        await inputPort.Handle();
+
+        if (outputPort is IPresenter<IEnumerable<OwnerDto>> presenter)
+        {
+            return Ok(presenter.Content);
+        }
+
+        return StatusCode(StatusCodes.Status500InternalServerError, "El presentador no está configurado correctamente.");
     }
 }

@@ -8,6 +8,7 @@ public static class DependencyContainer
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IPropertyRepository, PropertyRepository>();
+        services.AddScoped<IOwnerRepository, OwnerRepository>();
         return services;
     }
 }
