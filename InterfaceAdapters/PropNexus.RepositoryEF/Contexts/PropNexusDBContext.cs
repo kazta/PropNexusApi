@@ -6,6 +6,12 @@ namespace PropNexus.RepositoryEF.Contexts;
 public class PropNexusDBContext(DbContextOptions<PropNexusDBContext> options) : DbContext(options)
 {
     public DbSet<Property> Properties { get; set; }
+    public DbSet<Agent> Agents { get; set; }
+    public DbSet<Client> Clients { get; set; }
+    public DbSet<ListingStatus> ListingStatuses { get; set; }
+    public DbSet<Owner> Owners { get; set; }
+    public DbSet<PropertyTrace> PropertyTraces { get; set; }
+    public DbSet<PropertyImage> PropertyImages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -67,6 +73,72 @@ public class PropNexusDBContext(DbContextOptions<PropNexusDBContext> options) : 
 
             entity.Property(e => e.OwnerId)
                 .HasColumnName("owner_id");
+        });
+        modelBuilder.Entity<Agent>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.FirstName).IsRequired();
+            entity.Property(e => e.LastName).IsRequired();
+            entity.Property(e => e.Email).IsRequired().IsUnicode(false);
+            entity.Property(e => e.Phone).IsRequired();
+        });
+
+        modelBuilder.Entity<Client>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.FirstName).IsRequired();
+            entity.Property(e => e.LastName).IsRequired();
+            entity.Property(e => e.Email).IsRequired().IsUnicode(false);
+            entity.Property(e => e.Phone).IsRequired();
+        });
+
+        modelBuilder.Entity<ListingStatus>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.StatusName).IsRequired().IsUnicode(false);
+            entity.Property(e => e.Description).IsUnicode(false);
+        });
+
+        modelBuilder.Entity<Owner>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.FirstName).IsRequired();
+            entity.Property(e => e.LastName).IsRequired();
+            entity.Property(e => e.Email).IsRequired().IsUnicode(false);
+            entity.Property(e => e.Phone).IsRequired();
+        });
+
+        modelBuilder.Entity<PropertyTrace>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.ListingDate).IsRequired();
+
+            entity.HasOne<Agent>()
+                .WithMany()
+                .HasForeignKey(e => e.AgentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne<Client>()
+                .WithMany()
+                .HasForeignKey(e => e.ClientId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne<ListingStatus>()
+                .WithMany()
+                .HasForeignKey(e => e.StatusId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<PropertyImage>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.ImageUrl).IsRequired().IsUnicode(false);
+            entity.Property(e => e.Description).IsUnicode(false);
+
+            entity.HasOne<Property>()
+                .WithMany()
+                .HasForeignKey(e => e.PropertyId)
+                .OnDelete(DeleteBehavior.Cascade);
         });
     }
 }
