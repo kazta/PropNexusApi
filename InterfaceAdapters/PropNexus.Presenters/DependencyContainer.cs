@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using PropNexus.Presenters.Agent;
+using PropNexus.Presenters.Client;
 using PropNexus.Presenters.ListingStatus;
 using PropNexus.Presenters.Owner;
 using PropNexus.Presenters.Owners;
@@ -10,6 +11,11 @@ using PropNexus.UseCases.Agent.Delete;
 using PropNexus.UseCases.Agent.Get;
 using PropNexus.UseCases.Agent.GetAll;
 using PropNexus.UseCases.Agent.Update;
+using PropNexus.UseCases.Client.Create;
+using PropNexus.UseCases.Client.Delete;
+using PropNexus.UseCases.Client.Get;
+using PropNexus.UseCases.Client.GetAll;
+using PropNexus.UseCases.Client.Update;
 using PropNexus.UseCases.ListingStatus.Create;
 using PropNexus.UseCases.ListingStatus.Delete;
 using PropNexus.UseCases.ListingStatus.Get;
@@ -71,6 +77,13 @@ public static class DependencyContainer
         services.AddScoped<IUpdateListingStatusOutputPort, UpdateListingStatusPresenter>();
         services.AddScoped<IDeleteListingStatusOutputPort, DeleteListingStatusPresenter>();
         services.AddScoped<IGetAllListingStatusOutputPort, GetAllListingStatusPresenter>();
+        #endregion
+        #region Cliente
+        services.AddScoped<ICreateClientOutputPort, CreateClientPresenter>();
+        services.AddScoped<IGetClientOutputPort, GetClientPresenter>();
+        services.AddScoped<IUpdateClientOutputPort, UpdateClientPresenter>();
+        services.AddScoped<IDeleteClientOutputPort, DeleteClientPresenter>();
+        services.AddScoped<IGetAllClientOutputPort, GetAllClientPresenter>();
         #endregion
         return services;
     }
