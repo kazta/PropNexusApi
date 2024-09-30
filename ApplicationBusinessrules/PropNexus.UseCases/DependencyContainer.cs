@@ -9,6 +9,11 @@ using PropNexus.UseCases.Property.Delete;
 using PropNexus.UseCases.Property.Get;
 using PropNexus.UseCases.Property.GetAll;
 using PropNexus.UseCases.Property.Update;
+using PropNexus.UseCases.PropertyTrace.Create;
+using PropNexus.UseCases.PropertyTrace.Delete;
+using PropNexus.UseCases.PropertyTrace.Get;
+using PropNexus.UseCases.PropertyTrace.GetAll;
+using PropNexus.UseCases.PropertyTrace.Update;
 
 namespace PropNexus.UseCases;
 
@@ -29,6 +34,13 @@ public static class DependencyContainer
         services.AddScoped<IUpdateOwnerInputPort, UpdateOwnerInteractor>();
         services.AddScoped<IDeleteOwnerInputPort, DeleteOwnerInteractor>();
         services.AddScoped<IGetAllOwnerInputPort, GetAllOwnerInteractor>();
+        #endregion
+        #region PropertyTrace
+        services.AddScoped<ICreatePropertyTraceInputPort, CreatePropertyTraceInteractor>();
+        services.AddScoped<IGetPropertyTraceInputPort, GetPropertyTraceInteractor>();
+        services.AddScoped<IUpdatePropertyTraceInputPort, UpdatePropertyTraceInteractor>();
+        services.AddScoped<IDeletePropertyTraceInputPort, DeletePropertyTraceInteractor>();
+        services.AddScoped<IGetAllPropertyTraceInputPort, GetAllPropertyTraceInteractor>();
         #endregion
         return services;
     }

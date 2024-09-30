@@ -9,6 +9,7 @@ public static class DependencyContainer
     {
         services.AddScoped<IPropertyRepository, PropertyRepository>();
         services.AddScoped<IOwnerRepository, OwnerRepository>();
+        services.AddScoped<IPropertyTraceRepository, PropertyTraceRepository>();
         return services;
     }
 }
