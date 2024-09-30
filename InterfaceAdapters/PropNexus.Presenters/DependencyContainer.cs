@@ -1,8 +1,14 @@
 using Microsoft.Extensions.DependencyInjection;
+using PropNexus.Presenters.Agent;
 using PropNexus.Presenters.Owner;
 using PropNexus.Presenters.Owners;
 using PropNexus.Presenters.PorpertyTrace;
 using PropNexus.Presenters.Property;
+using PropNexus.UseCases.Agent.Create;
+using PropNexus.UseCases.Agent.Delete;
+using PropNexus.UseCases.Agent.Get;
+using PropNexus.UseCases.Agent.GetAll;
+using PropNexus.UseCases.Agent.Update;
 using PropNexus.UseCases.Owner.Create;
 using PropNexus.UseCases.Owner.Delete;
 using PropNexus.UseCases.Owner.Get;
@@ -45,6 +51,13 @@ public static class DependencyContainer
         services.AddScoped<IUpdatePropertyTraceOutputPort, UpdatePropertyTracePresenter>();
         services.AddScoped<IDeletePropertyTraceOutputPort, DeletePropertyTracePresenter>();
         services.AddScoped<IGetAllPropertyTraceOutputPort, GetAllPropertyTracePresenter>();
+        #endregion
+        #region Agent
+        services.AddScoped<ICreateAgentOutputPort, CreateAgentPresenter>();
+        services.AddScoped<IGetAgentOutputPort, GetAgentPresenter>();
+        services.AddScoped<IUpdateAgentOutputPort, UpdateAgentPresenter>();
+        services.AddScoped<IDeleteAgentOutputPort, DeleteAgentPresenter>();
+        services.AddScoped<IGetAllAgentOutputPort, GetAllAgentPresenter>();
         #endregion
         return services;
     }
