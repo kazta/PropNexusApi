@@ -13,6 +13,7 @@ public static class DependencyContainer
         services.AddScoped<IAgentRepository, AgentRepository>();
         services.AddScoped<IListingStatusRepository, ListingStatusRepository>();
         services.AddScoped<IClientRepository, ClientRepository>();
+        services.AddScoped<IPropertyImageRepository, PropertyImageRepository>();
         return services;
     }
 }

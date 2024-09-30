@@ -6,6 +6,7 @@ using PropNexus.Presenters.Owner;
 using PropNexus.Presenters.Owners;
 using PropNexus.Presenters.PorpertyTrace;
 using PropNexus.Presenters.Property;
+using PropNexus.Presenters.PropertyImage;
 using PropNexus.UseCases.Agent.Create;
 using PropNexus.UseCases.Agent.Delete;
 using PropNexus.UseCases.Agent.Get;
@@ -31,6 +32,11 @@ using PropNexus.UseCases.Property.Delete;
 using PropNexus.UseCases.Property.Get;
 using PropNexus.UseCases.Property.GetAll;
 using PropNexus.UseCases.Property.Update;
+using PropNexus.UseCases.PropertyImage.Create;
+using PropNexus.UseCases.PropertyImage.Delete;
+using PropNexus.UseCases.PropertyImage.Get;
+using PropNexus.UseCases.PropertyImage.GetAll;
+using PropNexus.UseCases.PropertyImage.Update;
 using PropNexus.UseCases.PropertyTrace.Create;
 using PropNexus.UseCases.PropertyTrace.Delete;
 using PropNexus.UseCases.PropertyTrace.Get;
@@ -84,6 +90,13 @@ public static class DependencyContainer
         services.AddScoped<IUpdateClientOutputPort, UpdateClientPresenter>();
         services.AddScoped<IDeleteClientOutputPort, DeleteClientPresenter>();
         services.AddScoped<IGetAllClientOutputPort, GetAllClientPresenter>();
+        #endregion
+        #region PropertyImage
+        services.AddScoped<ICreatePropertyImageOutputPort, CreatePropertyImagePresenter>();
+        services.AddScoped<IGetPropertyImageOutputPort, GetPropertyImagePresenter>();
+        services.AddScoped<IUpdatePropertyImageOutputPort, UpdatePropertyImagePresenter>();
+        services.AddScoped<IDeletePropertyImageOutputPort, DeletePropertyImagePresenter>();
+        services.AddScoped<IGetAllPropertyImageOutputPort, GetAllPropertyImagePresenter>();
         #endregion
         return services;
     }

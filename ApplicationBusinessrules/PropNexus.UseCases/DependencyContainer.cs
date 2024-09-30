@@ -24,6 +24,11 @@ using PropNexus.UseCases.Property.Delete;
 using PropNexus.UseCases.Property.Get;
 using PropNexus.UseCases.Property.GetAll;
 using PropNexus.UseCases.Property.Update;
+using PropNexus.UseCases.PropertyImage.Create;
+using PropNexus.UseCases.PropertyImage.Delete;
+using PropNexus.UseCases.PropertyImage.Get;
+using PropNexus.UseCases.PropertyImage.GetAll;
+using PropNexus.UseCases.PropertyImage.Update;
 using PropNexus.UseCases.PropertyTrace.Create;
 using PropNexus.UseCases.PropertyTrace.Delete;
 using PropNexus.UseCases.PropertyTrace.Get;
@@ -77,6 +82,13 @@ public static class DependencyContainer
         services.AddScoped<IUpdateClientInputPort, UpdateClientInteractor>();
         services.AddScoped<IDeleteClientInputPort, DeleteClientInteractor>();
         services.AddScoped<IGetAllClientInputPort, GetAllClientInteractor>();
+        #endregion
+        #region PropertyImage
+        services.AddScoped<ICreatePropertyImageInputPort, CreatePropertyImageInteractor>();
+        services.AddScoped<IGetPropertyImageInputPort, GetPropertyImageInteractor>();
+        services.AddScoped<IUpdatePropertyImageInputPort, UpdatePropertyImageInteractor>();
+        services.AddScoped<IDeletePropertyImageInputPort, DeletePropertyImageInteractor>();
+        services.AddScoped<IGetAllPropertyImageInputPort, GetAllPropertyImageInteractor>();
         #endregion
         return services;
     }
