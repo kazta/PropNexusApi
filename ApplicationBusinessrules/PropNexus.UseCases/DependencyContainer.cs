@@ -4,6 +4,11 @@ using PropNexus.UseCases.Agent.Delete;
 using PropNexus.UseCases.Agent.Get;
 using PropNexus.UseCases.Agent.GetAll;
 using PropNexus.UseCases.Agent.Update;
+using PropNexus.UseCases.ListingStatus.Create;
+using PropNexus.UseCases.ListingStatus.Delete;
+using PropNexus.UseCases.ListingStatus.Get;
+using PropNexus.UseCases.ListingStatus.GetAll;
+using PropNexus.UseCases.ListingStatus.Update;
 using PropNexus.UseCases.Owner.Create;
 using PropNexus.UseCases.Owner.Delete;
 using PropNexus.UseCases.Owner.Get;
@@ -53,6 +58,13 @@ public static class DependencyContainer
         services.AddScoped<IUpdateAgentInputPort, UpdateAgentInteractor>();
         services.AddScoped<IDeleteAgentInputPort, DeleteAgentInteractor>();
         services.AddScoped<IGetAllAgentInputPort, GetAllAgentInteractor>();
+        #endregion
+        #region ListingStatus
+        services.AddScoped<ICreateListingStatusInputPort, CreateListingStatusInteractor>();
+        services.AddScoped<IGetListingStatusInputPort, GetListingStatusInteractor>();
+        services.AddScoped<IUpdateListingStatusInputPort, UpdateListingStatusInteractor>();
+        services.AddScoped<IDeleteListingStatusInputPort, DeleteListingStatusInteractor>();
+        services.AddScoped<IGetAllListingStatusInputPort, GetAllListingStatusInteractor>();
         #endregion
         return services;
     }
