@@ -74,44 +74,150 @@ public class PropNexusDBContext(DbContextOptions<PropNexusDBContext> options) : 
             entity.Property(e => e.OwnerId)
                 .HasColumnName("owner_id");
         });
+
         modelBuilder.Entity<Agent>(entity =>
         {
+            entity.ToTable("agents");
+
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.FirstName).IsRequired();
-            entity.Property(e => e.LastName).IsRequired();
-            entity.Property(e => e.Email).IsRequired().IsUnicode(false);
-            entity.Property(e => e.Phone).IsRequired();
+
+            entity.Property(e => e.Id)
+                .HasColumnName("id")
+                .ValueGeneratedOnAdd();
+
+            entity.Property(e => e.FirstName)
+                .HasColumnName("first_name")
+                .IsRequired()
+                .HasMaxLength(int.MaxValue);
+
+            entity.Property(e => e.LastName)
+                .HasColumnName("last_name")
+                .IsRequired()
+                .HasMaxLength(int.MaxValue);
+
+            entity.Property(e => e.Email)
+                .HasColumnName("email")
+                .IsRequired()
+                .HasMaxLength(int.MaxValue)
+                .IsUnicode(false);
+
+            entity.Property(e => e.Phone)
+                .HasColumnName("phone")
+                .IsRequired()
+                .HasMaxLength(int.MaxValue);
         });
 
         modelBuilder.Entity<Client>(entity =>
         {
+            entity.ToTable("clients");
+
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.FirstName).IsRequired();
-            entity.Property(e => e.LastName).IsRequired();
-            entity.Property(e => e.Email).IsRequired().IsUnicode(false);
-            entity.Property(e => e.Phone).IsRequired();
+
+            entity.Property(e => e.Id)
+                .HasColumnName("id")
+                .ValueGeneratedOnAdd();
+
+            entity.Property(e => e.FirstName)
+                .HasColumnName("first_name")
+                .IsRequired()
+                .HasMaxLength(int.MaxValue);
+
+            entity.Property(e => e.LastName)
+                .HasColumnName("last_name")
+                .IsRequired()
+                .HasMaxLength(int.MaxValue);
+
+            entity.Property(e => e.Email)
+                .HasColumnName("email")
+                .IsRequired()
+                .HasMaxLength(int.MaxValue)
+                .IsUnicode(false);
+
+            entity.Property(e => e.Phone)
+                .HasColumnName("phone")
+                .IsRequired()
+                .HasMaxLength(int.MaxValue);
         });
 
         modelBuilder.Entity<ListingStatus>(entity =>
         {
+            entity.ToTable("listing_statuses");
+
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.StatusName).IsRequired().IsUnicode(false);
-            entity.Property(e => e.Description).IsUnicode(false);
+
+            entity.Property(e => e.Id)
+                .HasColumnName("id")
+                .ValueGeneratedOnAdd();
+
+            entity.Property(e => e.StatusName)
+                .HasColumnName("status_name")
+                .IsRequired()
+                .HasMaxLength(int.MaxValue)
+                .IsUnicode(false);
+
+            entity.Property(e => e.Description)
+                .HasColumnName("description")
+                .HasMaxLength(int.MaxValue)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Owner>(entity =>
         {
+            entity.ToTable("owners");
+
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.FirstName).IsRequired();
-            entity.Property(e => e.LastName).IsRequired();
-            entity.Property(e => e.Email).IsRequired().IsUnicode(false);
-            entity.Property(e => e.Phone).IsRequired();
+
+            entity.Property(e => e.Id)
+                .HasColumnName("id")
+                .ValueGeneratedOnAdd();
+
+            entity.Property(e => e.FirstName)
+                .HasColumnName("first_name")
+                .IsRequired()
+                .HasMaxLength(int.MaxValue);
+
+            entity.Property(e => e.LastName)
+                .HasColumnName("last_name")
+                .IsRequired()
+                .HasMaxLength(int.MaxValue);
+
+            entity.Property(e => e.Email)
+                .HasColumnName("email")
+                .IsRequired()
+                .HasMaxLength(int.MaxValue)
+                .IsUnicode(false);
+
+            entity.Property(e => e.Phone)
+                .HasColumnName("phone")
+                .IsRequired()
+                .HasMaxLength(int.MaxValue);
         });
 
         modelBuilder.Entity<PropertyTrace>(entity =>
         {
+            entity.ToTable("property_trace");
+
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.ListingDate).IsRequired();
+
+            entity.Property(e => e.Id)
+                .HasColumnName("id")
+                .ValueGeneratedOnAdd();
+
+            entity.Property(e => e.ListingDate)
+                .HasColumnName("listing_date")
+                .IsRequired();
+
+            entity.Property(e => e.PropertyId)
+                .HasColumnName("property_id");
+
+            entity.Property(e => e.AgentId)
+                .HasColumnName("agent_id");
+
+            entity.Property(e => e.ClientId)
+                .HasColumnName("client_id");
+
+            entity.Property(e => e.StatusId)
+                .HasColumnName("status_id");
 
             entity.HasOne<Agent>()
                 .WithMany()
@@ -131,9 +237,27 @@ public class PropNexusDBContext(DbContextOptions<PropNexusDBContext> options) : 
 
         modelBuilder.Entity<PropertyImage>(entity =>
         {
+            entity.ToTable("property_images");
+
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.ImageUrl).IsRequired().IsUnicode(false);
-            entity.Property(e => e.Description).IsUnicode(false);
+
+            entity.Property(e => e.Id)
+                .HasColumnName("id")
+                .ValueGeneratedOnAdd();
+
+            entity.Property(e => e.ImageUrl)
+                .HasColumnName("image_url")
+                .IsRequired()
+                .HasMaxLength(int.MaxValue)
+                .IsUnicode(false);
+
+            entity.Property(e => e.Description)
+                .HasColumnName("description")
+                .HasMaxLength(int.MaxValue)
+                .IsUnicode(false);
+
+            entity.Property(e => e.PropertyId)
+                .HasColumnName("property_id");
 
             entity.HasOne<Property>()
                 .WithMany()
