@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\EnterpriseBusinessrules\PropNexus.Entities\PropNexus.Entities.csproj" />
+    <ProjectReference Include="..\PropNexus.Criterias\PropNexus.Criterias.csproj" />
     <ProjectReference Include="..\PropNexus.Dtos\PropNexus.Dtos.csproj" />
   </ItemGroup>
 

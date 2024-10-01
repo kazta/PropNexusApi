@@ -1,13 +1,17 @@
+using PropNexus.Criterias;
+using PropNexus.Criterias.Property;
 using PropNexus.Dtos.Properties;
 using PropNexus.Entities.Interfaces;
+using Model = PropNexus.Entities.Models.Property;
 
 namespace PropNexus.UseCases.Property.GetAll;
 
 public class GetAllPropertyInteractor(IGetAllPropertyOutputPort outputPort, IPropertyRepository repository) : IGetAllPropertyInputPort
 {
-    public async Task Handle()
+    public async Task Handle(PropertyRequest request)
     {
-        var entities = await repository.GetAllAsync();
+        var criteria = new CriteriaList<Model>(new PropertyBedroomsCriteria(request.Bedrooms));
+        var entities = await repository.GetAllAsync(criteria);
         var dtos = entities.Select(entity => new PropertyDto
         {
             Id = entity.Id,

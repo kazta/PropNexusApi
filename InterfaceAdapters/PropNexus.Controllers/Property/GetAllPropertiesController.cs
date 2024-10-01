@@ -15,9 +15,9 @@ public class GetAllPropertyController(IGetAllPropertyInputPort inputPort, IGetAl
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] PropertyRequest request)
     {
-        await _inputPort.Handle();
+        await _inputPort.Handle(request);
 
         if (_outputPort is IPresenter<IEnumerable<PropertyDto>> presenter)
         {

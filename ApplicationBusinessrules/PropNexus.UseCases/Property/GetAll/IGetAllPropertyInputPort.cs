@@ -1,5 +1,7 @@
+using PropNexus.Dtos.Properties;
+
 namespace PropNexus.UseCases.Property.GetAll;
 public interface IGetAllPropertyInputPort
 {
-    Task Handle();
+    Task Handle(PropertyRequest request);
 }

@@ -18,9 +18,10 @@ public class PropertyRepository(PropNexusDBContext _context) : IPropertyReposito
         return await _context.Properties.FindAsync(id);
     }
 
-    public async Task<IEnumerable<Property>> GetAllAsync()
+    public async Task<IEnumerable<Property>> GetAllAsync(ICriteria<Property> criteria)
     {
-        return await _context.Properties.ToListAsync();
+        var query =_context.Properties.AsQueryable();
+        return await criteria.Apply(query).ToListAsync();
     }
 
     public async Task UpdateAsync(Property property)
