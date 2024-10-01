@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ApplicationBusinessrules\PropNexus.UseCases\PropNexus.UseCases.csproj" />
+    <ProjectReference Include="..\..\ApplicationBusinessrules\PropNexus.Dtos\PropNexus.Dtos.csproj" />
+    <ProjectReference Include="..\..\EnterpriseBusinessrules\PropNexus.Entities\PropNexus.Entities.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

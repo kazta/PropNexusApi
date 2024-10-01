@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\PorpNexus.RepositoryGC\PorpNexus.RepositoryGC.csproj" />
+    <ProjectReference Include="..\PropNexus.Repositories\PropNexus.Repositories.csproj" />
+    <ProjectReference Include="..\PropNexus.Presenters\PropNexus.Presenters.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
