@@ -40,4 +40,32 @@ public class GetAllPropertyInteractorTests
         _mockRepository.Verify(repo => repo.GetAllAsync(It.IsAny<CriteriaList<Model>>()), Times.Once);
         _mockOutputPort.Verify(port => port.Handle(It.Is<IEnumerable<PropertyDto>>(dtos => dtos.First().Id == 1)), Times.Once);
     }
+
+    [Test]
+    public async Task Handle_ShouldHandleEmptyList()
+    {
+        // Arrange
+        var request = new PropertyRequest { Bedrooms = 3 };
+        var entities = new List<Model>();
+        _mockRepository.Setup(repo => repo.GetAllAsync(It.IsAny<CriteriaList<Model>>())).ReturnsAsync(entities);
+
+        // Act
+        await _interactor.Handle(request);
+
+        // Assert
+        _mockRepository.Verify(repo => repo.GetAllAsync(It.IsAny<CriteriaList<Model>>()), Times.Once);
+        _mockOutputPort.Verify(port => port.Handle(It.Is<IEnumerable<PropertyDto>>(dtos => !dtos.Any())), Times.Once);
+    }
+
+    public void Handle_ShouldThrowExceptionWhenRepositoryFails()
+    {
+        // Arrange
+        var request = new PropertyRequest { Bedrooms = 3 };
+        _mockRepository.Setup(repo => repo.GetAllAsync(It.IsAny<CriteriaList<Model>>())).ThrowsAsync(new Exception("Repository error"));
+
+        // Act & Assert
+        Assert.ThrowsAsync<Exception>(async () => await _interactor.Handle(request));
+        _mockRepository.Verify(repo => repo.GetAllAsync(It.IsAny<CriteriaList<Model>>()), Times.Once);
+        _mockOutputPort.Verify(port => port.Handle(It.IsAny<IEnumerable<PropertyDto>>()), Times.Never);
+    }
 }
