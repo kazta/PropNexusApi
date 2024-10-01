@@ -15,92 +15,125 @@ Esta es una aplicación desarrollada en .NET 8 que sigue la arquitectura limpia 
 ## Instalación
 
 1. **Clonar el repositorio**:
+
    ```bash
    git clone https://github.com/kazta/PropNexusApi.git
    cd tu-repositorio
 
+   ```
+
 2. **Restaurar paquetes NuGet**:
-    ```bash
-    dotnet restore
+
+   ```bash
+   dotnet restore
+
+   ```
 
 3. **Configurar la base de datos**:
-    * La aplicación está configurada para conectarse a una instancia de SQL Server 2019 alojada en Cloud SQL.
-    * Si deseas usar una base de datos local, ejecuta el script proporcionado en scripts/database.sql para crear las tablas necesarias.
-    ```sql
-    CREATE TABLE agents (
-    id BIGINT PRIMARY KEY IDENTITY(1,1),
-    first_name NVARCHAR(MAX) NOT NULL,
-    last_name NVARCHAR(MAX) NOT NULL,
-    email NVARCHAR(MAX) UNIQUE NOT NULL,
-    phone NVARCHAR(MAX) NOT NULL
-    );
 
-    CREATE TABLE clients (
-        id BIGINT PRIMARY KEY IDENTITY(1,1),
-        first_name NVARCHAR(MAX) NOT NULL,
-        last_name NVARCHAR(MAX) NOT NULL,
-        email NVARCHAR(MAX) UNIQUE NOT NULL,
-        phone NVARCHAR(MAX) NOT NULL
-    );
+   - La aplicación está configurada para conectarse a una instancia de SQL Server 2019 alojada en Cloud SQL.
+   - Si deseas usar una base de datos local, ejecuta el script proporcionado en scripts/database.sql para crear las tablas necesarias.
 
-    CREATE TABLE listing_statuses (
-        id BIGINT PRIMARY KEY IDENTITY(1,1),
-        status_name NVARCHAR(MAX) NOT NULL UNIQUE,
-        description NVARCHAR(MAX)
-    );
+   ```sql
+   CREATE TABLE properties (
+       id BIGINT PRIMARY KEY IDENTITY(1,1),
+       address NVARCHAR(MAX) NOT NULL,
+       city NVARCHAR(MAX) NOT NULL,
+       state NVARCHAR(MAX) NOT NULL,
+       zip_code NVARCHAR(MAX) NOT NULL,
+       price DECIMAL(10, 2) NOT NULL,
+       bedrooms INT NOT NULL,
+       bathrooms INT NOT NULL,
+       square_feet INT NOT NULL,
+       property_type NVARCHAR(MAX) NOT NULL,
+       description NVARCHAR(MAX),
+       owner_id BIGINT
+   );
 
-    CREATE TABLE owners (
-        id BIGINT PRIMARY KEY IDENTITY(1,1),
-        first_name NVARCHAR(MAX) NOT NULL,
-        last_name NVARCHAR(MAX) NOT NULL,
-        email NVARCHAR(MAX) UNIQUE NOT NULL,
-        phone NVARCHAR(MAX) NOT NULL
-    );
+   CREATE TABLE agents (
+       id BIGINT PRIMARY KEY IDENTITY(1,1),
+       first_name NVARCHAR(MAX) NOT NULL,
+       last_name NVARCHAR(MAX) NOT NULL,
+       email NVARCHAR(MAX) UNIQUE NOT NULL,
+       phone NVARCHAR(MAX) NOT NULL
+   );
 
-    CREATE TABLE property_trace (
-        id BIGINT PRIMARY KEY IDENTITY(1,1),
-        property_id BIGINT FOREIGN KEY REFERENCES properties(id),
-        agent_id BIGINT FOREIGN KEY REFERENCES agents(id),
-        client_id BIGINT FOREIGN KEY REFERENCES clients(id),
-        listing_date DATE NOT NULL,
-        status_id BIGINT FOREIGN KEY REFERENCES listing_statuses(id)
-    );
+   CREATE TABLE clients (
+       id BIGINT PRIMARY KEY IDENTITY(1,1),
+       first_name NVARCHAR(MAX) NOT NULL,
+       last_name NVARCHAR(MAX) NOT NULL,
+       email NVARCHAR(MAX) UNIQUE NOT NULL,
+       phone NVARCHAR(MAX) NOT NULL
+   );
 
-    CREATE TABLE property_images (
-        id BIGINT PRIMARY KEY IDENTITY(1,1),
-        property_id BIGINT FOREIGN KEY REFERENCES properties(id),
-        image_url NVARCHAR(MAX) NOT NULL,
-        description NVARCHAR(MAX)
-    );
+   CREATE TABLE listing_statuses (
+       id BIGINT PRIMARY KEY IDENTITY(1,1),
+       status_name NVARCHAR(MAX) NOT NULL UNIQUE,
+       description NVARCHAR(MAX)
+   );
 
-    ALTER TABLE properties
-    ADD FOREIGN KEY (owner_id) REFERENCES owners(id);
+   CREATE TABLE owners (
+       id BIGINT PRIMARY KEY IDENTITY(1,1),
+       first_name NVARCHAR(MAX) NOT NULL,
+       last_name NVARCHAR(MAX) NOT NULL,
+       email NVARCHAR(MAX) UNIQUE NOT NULL,
+       phone NVARCHAR(MAX) NOT NULL
+   );
+
+   CREATE TABLE property_trace (
+       id BIGINT PRIMARY KEY IDENTITY(1,1),
+       property_id BIGINT FOREIGN KEY REFERENCES properties(id),
+       agent_id BIGINT FOREIGN KEY REFERENCES agents(id),
+       client_id BIGINT FOREIGN KEY REFERENCES clients(id),
+       listing_date DATE NOT NULL,
+       status_id BIGINT FOREIGN KEY REFERENCES listing_statuses(id)
+   );
+
+   CREATE TABLE property_images (
+       id BIGINT PRIMARY KEY IDENTITY(1,1),
+       property_id BIGINT FOREIGN KEY REFERENCES properties(id),
+       image_url NVARCHAR(MAX) NOT NULL,
+       description NVARCHAR(MAX)
+   );
+
+   ALTER TABLE properties
+   ADD FOREIGN KEY (owner_id) REFERENCES owners(id);
+
+   ```
 
 4. **Actualizar la cadena de conexión**:
-    * Modifica el archivo InterfaceAdapters/ropNexus.IoC/DependencyContainer para incluir la cadena de conexión a tu base de datos.
+
+   - Modifica el archivo InterfaceAdapters/ropNexus.IoC/DependencyContainer para incluir la cadena de conexión a tu base de datos.
 
 5. **Ejecución**
-Para ejecutar la aplicación, utiliza el siguiente comando:
-    ```bash
-    dotnet run
+   Para ejecutar la aplicación, utiliza el siguiente comando:
+
+   ```bash
+   dotnet run
+
+   ```
 
 6. **Pruebas**
- * Para ejecutar las pruebas unitarias, utiliza el siguiente comando:
-    ```bash
-    dotnet test
+
+- Para ejecutar las pruebas unitarias, utiliza el siguiente comando:
+  ```bash
+  dotnet test
+  ```
 
 **Librerías Adicionales**
- * EntityFrameworkCore: Utilizado para el acceso a datos y mapeo objeto-relacional (ORM).
- * Google.Cloud.Storage.V1: Utilizado para interactuar con Google Cloud Storage.
- * NUnit: Utilizado para realizar pruebas unitarias.
+
+- EntityFrameworkCore: Utilizado para el acceso a datos y mapeo objeto-relacional (ORM).
+- Google.Cloud.Storage.V1: Utilizado para interactuar con Google Cloud Storage.
+- NUnit: Utilizado para realizar pruebas unitarias.
 
 **Arquitectura**
 
 La aplicación sigue la arquitectura limpia (Clean Architecture) propuesta por Uncle Bob. A continuación, se describen los componentes principales:
 
 **Input y Output Ports**
- * Input Ports: Interfaces que definen los casos de uso de la aplicación. Son implementadas por los interactores.
- * Output Ports: Interfaces que definen cómo se deben presentar los datos. Son implementadas por los presentadores.
+
+- Input Ports: Interfaces que definen los casos de uso de la aplicación. Son implementadas por los interactores.
+- Output Ports: Interfaces que definen cómo se deben presentar los datos. Son implementadas por los presentadores.
 
 **Patrón Repository**
 
@@ -108,7 +141,7 @@ Repository: Patrón utilizado para abstraer el acceso a los datos. Define métod
 
 **Patrón Criteria**
 
-* Criteria: Utilizado para encapsular los criterios de búsqueda y filtrado de datos. Permite construir consultas de manera flexible y reutilizable.
+- Criteria: Utilizado para encapsular los criterios de búsqueda y filtrado de datos. Permite construir consultas de manera flexible y reutilizable.
 
 **Ejemplo de Código**
 
@@ -147,3 +180,4 @@ public class GetAllPropertyInteractor : IGetAllPropertyInputPort
         await _outputPort.Handle(dtos);
     }
 }
+```
