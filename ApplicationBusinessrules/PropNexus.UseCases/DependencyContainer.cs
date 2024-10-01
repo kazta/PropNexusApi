@@ -28,6 +28,7 @@ using PropNexus.UseCases.PropertyImage.Create;
 using PropNexus.UseCases.PropertyImage.Delete;
 using PropNexus.UseCases.PropertyImage.Get;
 using PropNexus.UseCases.PropertyImage.GetAll;
+using PropNexus.UseCases.PropertyImage.SendImage;
 using PropNexus.UseCases.PropertyImage.Update;
 using PropNexus.UseCases.PropertyTrace.Create;
 using PropNexus.UseCases.PropertyTrace.Delete;
@@ -89,6 +90,7 @@ public static class DependencyContainer
         services.AddScoped<IUpdatePropertyImageInputPort, UpdatePropertyImageInteractor>();
         services.AddScoped<IDeletePropertyImageInputPort, DeletePropertyImageInteractor>();
         services.AddScoped<IGetAllPropertyImageInputPort, GetAllPropertyImageInteractor>();
+        services.AddScoped<ISendImageInputPort, SendImageInteractor>();
         #endregion
         return services;
     }

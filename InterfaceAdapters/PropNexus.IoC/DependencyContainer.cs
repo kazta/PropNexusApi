@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using PorpNexus.RepositoryGC.Storage;
+using PropNexus.Entities.Interfaces;
 using PropNexus.Presenters;
 using PropNexus.Repositories;
 using PropNexus.RepositoryEF.Contexts;
@@ -15,6 +17,7 @@ public static class DependencyContainer
         services.AddRepositories();
         services.AddUseCases();
         services.AddPresenters();
+        services.AddScoped<IProcessImage, SendImage>();
         return services;
     }
 }

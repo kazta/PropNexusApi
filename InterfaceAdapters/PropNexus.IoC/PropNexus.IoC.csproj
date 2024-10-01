@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\PorpNexus.RepositoryGC\PorpNexus.RepositoryGC.csproj" />
     <ProjectReference Include="..\PropNexus.Repositories\PropNexus.Repositories.csproj" />
     <ProjectReference Include="..\PropNexus.Presenters\PropNexus.Presenters.csproj" />
   </ItemGroup>
